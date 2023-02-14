@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  chinetd:
+    container_name: chinetd
+    image: supertypo/chinetd:latest
+    restart: unless-stopped
+    environment:
+      # Wallet address (for mining to the node, stratum port):
+      - "WALLET_ADDRESS=xxx"
+    ports:
+      # P2P
+      - "11121:11121/tcp"
+      # RPC
+      - "11211:11211/tcp"
+      # Stratum
+      - "11777:11777/tcp"
+    volumes:
+      # Use local directory for storage (must be writable by uid=51291):
+      #- /var/chinetd/:/app/.Chinet/
+      # Use docker volume for storage:
+      - chinetd:/app/.Chinet/
+
+volumes:
+  chinetd:
+
